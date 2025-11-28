@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多语言游戏论坛</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cbc;
+            --background-color: #f5f7fa;
+            --text-color: #333;
+            --light-text: #fff;
+            --border-color: #ddd;
+            --success-color: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--light-text);
+            color: var(--light-text);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background-color: var(--light-text);
+            color: var(--primary-color);
+        }
+        
+        /* 导航样式 */
+        nav {
+            background-color: var(--secondary-color);
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        /* 主要内容区 */
+        main {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 20px;
+            padding: 20px 0;
+        }
+        
+        /* 论坛帖子区 */
+        .forum-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--primary-color);
+        }
+        
+        .post {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+        
+        .post:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .post-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .post-meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .post-content {
+            margin-bottom: 10px;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        /* 发帖表单 */
+        .post-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* 侧边栏 */
+	<ul class="external-links">
+    	<li class="external-link"><a href="https://bloxd.io/" target="_blank">Bloxd游戏官网</a></li>
+    	<li class="external-link"><a href="https://bloxdhub.com/" target="_blank">Bloxd国外论坛</a></li>
+    	<li class="external-link"><a href="https://bloxd-io.fandom.com/zh/wiki/Bloxd.io_%E4%B8%AD%E6%96%87_Wiki" target="_blank">Bloxd Wiki百科</a>	</li>
+	</ul>
+        /* 页脚 */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo" data-lang-key="site-title">游戏玩家论坛</div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="zh-CN">简体中文</button>
+                <button class="lang-btn" data-lang="zh-TW">繁體中文</button>
+                <button class="lang-btn" data-lang="ru">Русский</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- 导航 -->
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#" data-lang-key="nav-home">首页</a></li>
+                <li><a href="#" data-lang-key="nav-forum">论坛</a></li>
+                <li><a href="#" data-lang-key="nav-games">游戏</a></li>
+                <li><a href="#" data-lang-key="nav-downloads">下载</a></li>
+                <li><a href="#" data-lang-key="nav-about">关于我们</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 主要内容 -->
+    <div class="container">
+        <main>
+            <!-- 左侧内容 -->
+            <div class="main-content">
+                <!-- 发帖表单 -->
+                <section class="post-form">
+                    <h2 class="section-title" data-lang-key="post-title">发布新帖子</h2>
+                    <form id="postForm">
+                        <div class="form-group">
+                            <label for="postTitle" data-lang-key="post-form-title">帖子标题</label>
+                            <input type="text" id="postTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="postContent" data-lang-key="post-form-content">帖子内容</label>
+                            <textarea id="postContent" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-lang-key="post-form-submit">发布帖子</button>
+                    </form>
+                </section>
+                
+                <!-- 帖子列表 -->
+                <section class="forum-section">
+                    <h2 class="section-title" data-lang-key="forum-title">热门帖子</h2>
+                    
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-title" data-lang-key="post1-title">《赛博朋克2077》最新DLC发布！</div>
+                            <div class="post-meta">by <span data-lang-key="user1">游戏达人</span> · 2023-10-15</div>
+                        </div>
+                        <div class="post-content" data-lang-key="post1-content">
+                            刚刚发布的《赛博朋克2077》新DLC带来了全新的故事线和游戏机制，夜之城再次焕发生机。我已经玩了10小时，感觉比原版优化了很多！
+                        </div>
+                        <div class="post-actions">
+                            <button class="btn btn-primary" data-lang-key="post-reply">回复</button>
+                            <button class="btn" data-lang-key="post-like">点赞 (42)</button>
+                        </div>
+                    </div>
+                    
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-title" data-lang-key="post2-title">《艾尔登法环》新手入门指南</div>
+                            <div class="post-meta">by <span data-lang-key="user2">魂系老玩家</span> · 2023-10-12</div>
+                        </div>
+                        <div class="post-content" data-lang-key="post2-content">
+                            最近很多新玩家加入了交界地的冒险，我整理了一份详细的入门指南，包括职业选择、前期装备获取和重要NPC位置，希望能帮助大家少走弯路。
+                        </div>
+                        <div class="post-actions">
+                            <button class="btn btn-primary" data-lang-key="post-reply">回复</button>
+                            <button class="btn" data-lang-key="post-like">点赞 (28)</button>
+                        </div>
+                    </div>
+                    
+                    <div class="post">
+                        <div class="post-header">
+                            <div class="post-title" data-lang-key="post3-title">独立游戏《星露谷物语》多人联机模式体验</div>
+                            <div class="post-meta">by <span data-lang-key="user3">农场爱好者</span> · 2023-10-10</div>
+                        </div>
+                        <div class="post-content" data-lang-key="post3-content">
+                            最近和朋友们一起体验了《星露谷物语》的多人联机模式，感觉游戏乐趣翻倍！可以分工合作，有人负责耕种，有人负责采矿，还有人负责钓鱼，效率大大提高。
+                        </div>
+                        <div class="post-actions">
+                            <button class="btn btn-primary" data-lang-key="post-reply">回复</button>
+                            <button class="btn" data-lang-key="post-like">点赞 (15)</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- 侧边栏 -->
+            <div class="sidebar">
+                <!-- 文件下载 -->
+                <section class="sidebar-section">
+                    <h3 class="section-title" data-lang-key="downloads-title">游戏资源下载</h3>
+                    <ul class="download-list">
+                        <li class="download-item">
+                            <a href="#" class="download-link">
+                                <span data-lang-key="download1">游戏模组合集</span>
+                                <span>125 MB</span>
+                            </a>
+                        </li>
+                        <li class="download-item">
+                            <a href="#" class="download-link">
+                                <span data-lang-key="download2">高清纹理包</span>
+                                <span>356 MB</span>
+                            </a>
+                        </li>
+                        <li class="download-item">
+                            <a href="#" class="download-link">
+                                <span data-lang-key="download3">游戏存档</span>
+                                <span>12 MB</span>
+                            </a>
+                        </li>
+                        <li class="download-item">
+                            <a href="#" class="download-link">
+                                <span data-lang-key="download4">工具软件</span>
+                                <span>78 MB</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+                
+                <!-- 外部链接 -->
+                <section class="sidebar-section">
+                    <h3 class="section-title" data-lang-key="links-title">相关网站</h3>
+                    <ul class="external-links">
+                        <li class="external-link"><a href="#" data-lang-key="link1">游戏新闻网站</a></li>
+                        <li class="external-link"><a href="#" data-lang-key="link2">游戏评测平台</a></li>
+                        <li class="external-link"><a href="#" data-lang-key="link3">游戏开发者社区</a></li>
+                        <li class="external-link"><a href="#" data-lang-key="link4">游戏销售平台</a></li>
+                    </ul>
+                </section>
+                
+                <!-- 统计信息 -->
+                <section class="sidebar-section">
+                    <h3 class="section-title" data-lang-key="stats-title">论坛统计</h3>
+                    <p data-lang-key="stats-members">注册会员: 15,842</p>
+                    <p data-lang-key="stats-posts">帖子总数: 58,376</p>
+                    <p data-lang-key="stats-online">在线用户: 324</p>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p data-lang-key="footer-text">© 2023 游戏玩家论坛 - 保留所有权利</p>
+        </div>
+    </footer>
+
+    <script>
+        // 多语言支持
+        const translations = {
+            'zh-CN': {
+                'site-title': '游戏玩家论坛',
+                'nav-home': '首页',
+                'nav-forum': '论坛',
+                'nav-games': '游戏',
+                'nav-downloads': '下载',
+                'nav-about': '关于我们',
+                'post-title': '发布新帖子',
+                'post-form-title': '帖子标题',
+                'post-form-content': '帖子内容',
+                'post-form-submit': '发布帖子',
+                'forum-title': '热门帖子',
+                'post1-title': '《赛博朋克2077》最新DLC发布！',
+                'user1': '游戏达人',
+                'post1-content': '刚刚发布的《赛博朋克2077》新DLC带来了全新的故事线和游戏机制，夜之城再次焕发生机。我已经玩了10小时，感觉比原版优化了很多！',
+                'post2-title': '《艾尔登法环》新手入门指南',
+                'user2': '魂系老玩家',
+                'post2-content': '最近很多新玩家加入了交界地的冒险，我整理了一份详细的入门指南，包括职业选择、前期装备获取和重要NPC位置，希望能帮助大家少走弯路。',
+                'post3-title': '独立游戏《星露谷物语》多人联机模式体验',
+                'user3': '农场爱好者',
+                'post3-content': '最近和朋友们一起体验了《星露谷物语》的多人联机模式，感觉游戏乐趣翻倍！可以分工合作，有人负责耕种，有人负责采矿，还有人负责钓鱼，效率大大提高。',
+                'post-reply': '回复',
+                'post-like': '点赞',
+                'downloads-title': '游戏资源下载',
+                'download1': '游戏模组合集',
+                'download2': '高清纹理包',
+                'download3': '游戏存档',
+                'download4': '工具软件',
+                'links-title': '相关网站',
+                'link1': '游戏新闻网站',
+                'link2': '游戏评测平台',
+                'link3': '游戏开发者社区',
+                'link4': '游戏销售平台',
+                'stats-title': '论坛统计',
+                'stats-members': '注册会员: 15,842',
+                'stats-posts': '帖子总数: 58,376',
+                'stats-online': '在线用户: 324',
+                'footer-text': '© 2023 游戏玩家论坛 - 保留所有权利'
+            },
+            'zh-TW': {
+                'site-title': '遊戲玩家論壇',
+                'nav-home': '首頁',
+                'nav-forum': '論壇',
+                'nav-games': '遊戲',
+                'nav-downloads': '下載',
+                'nav-about': '關於我們',
+                'post-title': '發布新帖子',
+                'post-form-title': '帖子標題',
+                'post-form-content': '帖子內容',
+                'post-form-submit': '發布帖子',
+                'forum-title': '熱門帖子',
+                'post1-title': '《電馭叛客2077》最新DLC發布！',
+                'user1': '遊戲達人',
+                'post1-content': '剛剛發布的《電馭叛客2077》新DLC帶來了全新的故事線和遊戲機制，夜之城再次煥發生機。我已經玩了10小時，感覺比原版優化了很多！',
+                'post2-title': '《艾爾登法環》新手入門指南',
+                'user2': '魂系老玩家',
+                'post2-content': '最近很多新玩家加入了交界地的冒險，我整理了一份詳細的入門指南，包括職業選擇、前期裝備獲取和重要NPC位置，希望能幫助大家少走彎路。',
+                'post3-title': '獨立遊戲《星露谷物語》多人聯機模式體驗',
+                'user3': '農場愛好者',
+                'post3-content': '最近和朋友們一起體驗了《星露谷物語》的多人聯機模式，感覺遊戲樂趣翻倍！可以分工合作，有人負責耕種，有人負責採礦，還有人負責釣魚，效率大大提高。',
+                'post-reply': '回覆',
+                'post-like': '點讚',
+                'downloads-title': '遊戲資源下載',
+                'download1': '遊戲模組合集',
+                'download2': '高清紋理包',
+                'download3': '遊戲存檔',
+                'download4': '工具軟體',
+                'links-title': '相關網站',
+                'link1': '遊戲新聞網站',
+                'link2': '遊戲評測平台',
+                'link3': '遊戲開發者社區',
+                'link4': '遊戲銷售平台',
+                'stats-title': '論壇統計',
+                'stats-members': '註冊會員: 15,842',
+                'stats-posts': '帖子總數: 58,376',
+                'stats-online': '在線用戶: 324',
+                'footer-text': '© 2023 遊戲玩家論壇 - 保留所有權利'
+            },
+            'ru': {
+                'site-title': 'Форум геймеров',
+                'nav-home': 'Главная',
+                'nav-forum': 'Форум',
+                'nav-games': 'Игры',
+                'nav-downloads': 'Загрузки',
+                'nav-about': 'О нас',
+                'post-title': 'Создать новую тему',
+                'post-form-title': 'Заголовок темы',
+                'post-form-content': 'Содержание темы',
+                'post-form-submit': 'Опубликовать',
+                'forum-title': 'Популярные темы',
+                'post1-title': 'Вышло новое дополнение для Cyberpunk 2077!',
+                'user1': 'Геймер-эксперт',
+                'post1-content': 'Только что выпущенное дополнение для Cyberpunk 2077 приносит совершенно новые сюжетные линии и игровые механики. Ночной город снова оживает! Я играл уже 10 часов, и чувствуется, что игра оптимизирована намного лучше, чем оригинал.',
+                'post2-title': 'Руководство для новичков по Elden Ring',
+                'user2': 'Опытный игрок в Souls-игры',
+                'post2-content': 'В последнее время много новых игроков присоединились к приключениям в Межземье. Я подготовил подробное руководство для начинающих, включая выбор класса, получение снаряжения на ранних этапах и расположение важных NPC, чтобы помочь всем избежать лишних трудностей.',
+                'post3-title': 'Опыт многопользовательского режима в инди-игре Stardew Valley',
+                'user3': 'Любитель фермерства',
+                'post3-content': 'Недавно с друзьями попробовал многопользовательский режим в Stardew Valley, и ощущения от игры удвоились! Можно распределить обязанности: кто-то занимается сельским хозяйством, кто-то добычей руды, а кто-то рыбалкой - эффективность значительно повышается.',
+                'post-reply': 'Ответить',
+                'post-like': 'Нравится',
+                'downloads-title': 'Загрузки игровых ресурсов',
+                'download1': 'Коллекция модов',
+                'download2': 'HD текстуры',
+                'download3': 'Сохранения игр',
+                'download4': 'Инструменты',
+                'links-title': 'Связанные сайты',
+                'link1': 'Новости игр',
+                'link2': 'Платформа обзоров игр',
+                'link3': 'Сообщество разработчиков игр',
+                'link4': 'Платформа продаж игр',
+                'stats-title': 'Статистика форума',
+                'stats-members': 'Зарегистрированных пользователей: 15,842',
+                'stats-posts': 'Всего тем: 58,376',
+                'stats-online': 'Пользователей онлайн: 324',
+                'footer-text': '© 2023 Форум геймеров - Все права защищены'
+            },
+            'en': {
+                'site-title': 'Gamers Forum',
+                'nav-home': 'Home',
+                'nav-forum': 'Forum',
+                'nav-games': 'Games',
+                'nav-downloads': 'Downloads',
+                'nav-about': 'About Us',
+                'post-title': 'Create New Post',
+                'post-form-title': 'Post Title',
+                'post-form-content': 'Post Content',
+                'post-form-submit': 'Publish Post',
+                'forum-title': 'Popular Posts',
+                'post1-title': 'Cyberpunk 2077 Latest DLC Released!',
+                'user1': 'Game Expert',
+                'post1-content': 'The newly released Cyberpunk 2077 DLC brings brand new storylines and game mechanics. Night City is alive again! I\'ve played for 10 hours and it feels much more optimized than the original.',
+                'post2-title': 'Elden Ring Beginner\'s Guide',
+                'user2': 'Souls Veteran',
+                'post2-content': 'Recently, many new players have joined the adventure in the Lands Between. I\'ve compiled a detailed beginner\'s guide, including class selection, early equipment acquisition, and important NPC locations, hoping to help everyone avoid unnecessary difficulties.',
+                'post3-title': 'Experience with Stardew Valley Multiplayer Mode',
+                'user3': 'Farming Enthusiast',
+                'post3-content': 'Recently tried Stardew Valley\'s multiplayer mode with friends, and the fun doubled! We could divide tasks - someone farming, someone mining, and someone fishing - efficiency improved significantly.',
+                'post-reply': 'Reply',
+                'post-like': 'Like',
+                'downloads-title': 'Game Resources Download',
+                'download1': 'Game Mods Collection',
+                'download2': 'HD Texture Pack',
+                'download3': 'Game Saves',
+                'download4': 'Tools & Software',
+                'links-title': 'Related Websites',
+                'link1': 'Game News Site',
+                'link2': 'Game Review Platform',
+                'link3': 'Game Developer Community',
+                'link4': 'Game Sales Platform',
+                'stats-title': 'Forum Statistics',
+                'stats-members': 'Registered Members: 15,842',
+                'stats-posts': 'Total Posts: 58,376',
+                'stats-online': 'Online Users: 324',
+                'footer-text': '© 2023 Gamers Forum - All Rights Reserved'
+            }
+        };
+
+        // 当前语言
+        let currentLang = 'zh-CN';
+
+        // 语言切换功能
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 更新活动按钮
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // 切换语言
+                currentLang = this.getAttribute('data-lang');
+                updateLanguage();
+            });
+        });
+
+        // 更新页面语言
+        function updateLanguage() {
+            document.querySelectorAll('[data-lang-key]').forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    element.textContent = translations[currentLang][key];
+                }
+            });
+        }
+
+        // 帖子发布功能
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            
+            if (title && content) {
+                // 创建新帖子
+                const postsContainer = document.querySelector('.forum-section');
+                const newPost = document.createElement('div');
+                newPost.className = 'post';
+                
+                // 获取当前时间
+                const now = new Date();
+                const dateString = now.toISOString().split('T')[0];
+                
+                // 创建帖子内容
+                newPost.innerHTML = `
+                    <div class="post-header">
+                        <div class="post-title">${title}</div>
+                        <div class="post-meta">by <span>${translations[currentLang]['user1']}</span> · ${dateString}</div>
+                    </div>
+                    <div class="post-content">${content}</div>
+                    <div class="post-actions">
+                        <button class="btn btn-primary">${translations[currentLang]['post-reply']}</button>
+                        <button class="btn">${translations[currentLang]['post-like']} (0)</button>
+                    </div>
+                `;
+                
+                // 将新帖子插入到帖子列表顶部
+                postsContainer.insertBefore(newPost, postsContainer.children[1]);
+                
+                // 清空表单
+                document.getElementById('postForm').reset();
+                
+                // 显示成功消息
+                alert('帖子发布成功！');
+            }
+        });
+
+        // 文件下载功能
+        document.querySelectorAll('.download-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const fileName = this.querySelector('span').textContent;
+                alert(`开始下载: ${fileName}`);
+                // 实际应用中这里会有真实的下载逻辑
+            });
+        });
+    </script>
+</body>
+</html>
